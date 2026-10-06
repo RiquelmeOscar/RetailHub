@@ -20,16 +20,19 @@ Auditoría completa del estado del repo. **No corrige**: detecta, evidencia y re
 4. Docker corriendo y base arriba: `docker ps` → si no está, `npm run db:up` y esperar healthy.
 5. `npx prisma migrate deploy -w server` y `npm run db:seed` (seed es idempotente; requiere `server/.env`).
 6. Levantar la API en segundo plano y esperar readiness:
-   - `npm run dev -w server > /tmp/retailhub-server.log 2>&1 & echo $!`
-   - Esperar hasta que `curl -s -o /dev/null -w "%{http_code}" -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"admin@retailhub.dev","password":"admin123"}'` devuelva `200` (reintentar ~15 veces con 1s de espera).
-   - Si el puerto 3001 ya está en uso por otra instancia, usar esa y no duplicar.
+   - Elegir puerto: si `netstat -ano | findstr :3001` no devuelve nada, usar `3001`; si está ocupado (puede ser otro worktree), usar `3101` y anotarlo en el reporte.
+   - `PORT=<puerto> npm run dev -w server > /tmp/retailhub-server.log 2>&1 & echo $!` (guardar el PID).
+   - Esperar hasta que `curl -s -o /dev/null -w "%{http_code}" -X POST http://localhost:<puerto>/api/auth/login -H "Content-Type: application/json" -d '{"email":"admin@retailhub.dev","password":"admin123"}'` devuelva `200` (reintentar ~15 veces con 1s de espera).
+   - Si no arranca por `EADDRINUSE`, elegir otro puerto libre (3201, …) y reintentar; si sigue fallando, reportar y detener la auditoría.
+   - Nunca matar procesos ajenos: solo detener el PID que levantó QA al final. Nunca asumir que un 3001 ocupado sirve el código actual.
 
 ## 1. Smoke tests de API
 
-Ejecutar la suite del repo:
+Ejecutar la suite del repo contra el puerto elegido:
 
 ```bash
-node scripts/smoke.mjs
+node scripts/smoke.mjs                                   # puerto 3001
+API_URL=http://localhost:3101 node scripts/smoke.mjs     # puerto alternativo
 ```
 
 Cubre: login admin/operator, 401 sin token, 403 por rol, validación 400, SKU duplicado 409, movimientos IN/OUT, stock insuficiente 409, alta/confirmación/cancelación de órdenes con verificación de stock, doble confirmación 409, cancelación doble 409, 404 de orden inexistente, y forma uniforme de los errores. Sale con código ≠ 0 si algo falla.
@@ -48,7 +51,8 @@ Casos puntuales que la suite no cubra: probar con `curl` y validar status + `err
 
 ## 3. Revisión de UI (si el cambio toca client)
 
-1. Con server y client corriendo (`npm run dev`), abrir con Orca:
+1. Si QA usó un puerto alternativo para la API, el proxy de Vite sigue apuntando a `3001`: verificar visualmente igual y anotar que los datos de API pueden venir de otra instancia.
+2. Con server y client corriendo (`npm run dev`), abrir con Orca:
    - `orca tab create --url http://localhost:5173 --json`
    - `orca snapshot` / `orca screenshot --format png`
 2. Login (`admin@retailhub.dev` / `admin123`) y recorrer las páginas afectadas.

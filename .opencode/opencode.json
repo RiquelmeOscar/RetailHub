@@ -27,6 +27,7 @@
       "ls *": "allow",
       "cat *": "allow",
       "cp *": "allow",
+      "netstat *": "allow",
       "orca tab *": "allow",
       "orca snapshot*": "allow",
       "orca screenshot*": "allow",
