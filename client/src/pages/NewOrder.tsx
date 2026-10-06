@@ -1,0 +1,51 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { api } from "../api/client";
+
+export default function NewOrder() {
+  const [products, setProducts] = useState<any[]>([]);
+  const [items, setItems] = useState<Array<{ productId: string; quantity: number }>>([]);
+  const [productId, setProductId] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => { api("/products").then(setProducts); }, []);
+
+  function add() {
+    if (!productId || quantity < 1) return;
+    setItems([...items, { productId, quantity }]);
+    setProductId("");
+    setQuantity(1);
+  }
+
+  async function submit() {
+    setError("");
+    try {
+      const order = await api("/orders", { method: "POST", body: JSON.stringify({ items }) });
+      navigate(`/orders/${order.id}`);
+    } catch (err: any) {
+      setError(err.message);
+    }
+  }
+
+  return (
+    <div>
+      <h2>Nueva orden</h2>
+      <div className="card">
+        <select value={productId} onChange={(e) => setProductId(e.target.value)}>
+          <option value="">Producto...</option>
+          {products.map((p) => <option key={p.id} value={p.id}>{p.name} (stock {p.stock})</option>)}
+        </select>
+        <input type="number" min={1} value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} />
+        <button onClick={add}>Agregar</button>
+      </div>
+      <table>
+        <thead><tr><th>Producto</th><th>Cantidad</th></tr></thead>
+        <tbody>{items.map((it, i) => <tr key={i}><td>{products.find((p) => p.id === it.productId)?.name}</td><td>{it.quantity}</td></tr>)}</tbody>
+      </table>
+      {error && <p className="error">{error}</p>}
+      <button disabled={items.length === 0} onClick={submit}>Crear orden</button>
+    </div>
+  );
+}
