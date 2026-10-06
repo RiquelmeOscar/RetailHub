@@ -16,7 +16,7 @@ Fuente de trabajo del loop de iteración (`/iterar`, skill `retailhub-iterate`).
 
 - **Categoría:** Feature
 - **Prioridad:** P0
-- **Estado:** todo
+- **Estado:** done (2026-10-05, `d21565b`)
 - **Descripción:** endpoint público (sin auth) para readiness de QA y automatización.
 - **Aceptación:** responde `200 { "status": "ok", "timestamp": "<ISO>" }` sin token, sin datos sensibles; `scripts/smoke.mjs` lo verifica.
 
