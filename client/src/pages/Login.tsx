@@ -19,9 +19,11 @@ export default function Login() {
   return (
     <form className="card" onSubmit={submit}>
       <h1>RetailHub</h1>
-      <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-      {error && <p className="error">{error}</p>}
+      <label htmlFor="login-email">Email</label>
+      <input id="login-email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" autoComplete="username" />
+      <label htmlFor="login-password">Password</label>
+      <input id="login-password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" autoComplete="current-password" />
+      {error && <p className="error" role="alert">{error}</p>}
       <button>Ingresar</button>
     </form>
   );

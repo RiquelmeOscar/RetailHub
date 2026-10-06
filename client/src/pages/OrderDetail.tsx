@@ -28,7 +28,7 @@ export default function OrderDetail() {
         <thead><tr><th>Producto</th><th>Cantidad</th><th>Precio unitario</th></tr></thead>
         <tbody>{order.items.map((it: any) => <tr key={it.id}><td>{it.product.name}</td><td>{it.quantity}</td><td>${Number(it.unitPrice).toFixed(2)}</td></tr>)}</tbody>
       </table>
-      {error && <p className="error">{error}</p>}
+      {error && <p className="error" role="alert">{error}</p>}
       {order.status === "PENDING" && (
         <>
           <button onClick={() => act("confirm")}>Confirmar</button>

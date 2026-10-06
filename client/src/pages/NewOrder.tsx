@@ -33,18 +33,20 @@ export default function NewOrder() {
     <div>
       <h2>Nueva orden</h2>
       <div className="card">
-        <select value={productId} onChange={(e) => setProductId(e.target.value)}>
+        <label htmlFor="order-product">Producto</label>
+        <select id="order-product" value={productId} onChange={(e) => setProductId(e.target.value)}>
           <option value="">Producto...</option>
           {products.map((p) => <option key={p.id} value={p.id}>{p.name} (stock {p.stock})</option>)}
         </select>
-        <input type="number" min={1} value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} />
+        <label htmlFor="order-quantity">Cantidad</label>
+        <input id="order-quantity" type="number" min={1} value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} />
         <button onClick={add}>Agregar</button>
       </div>
       <table>
         <thead><tr><th>Producto</th><th>Cantidad</th></tr></thead>
         <tbody>{items.map((it, i) => <tr key={i}><td>{products.find((p) => p.id === it.productId)?.name}</td><td>{it.quantity}</td></tr>)}</tbody>
       </table>
-      {error && <p className="error">{error}</p>}
+      {error && <p className="error" role="alert">{error}</p>}
       <button disabled={items.length === 0} onClick={submit}>Crear orden</button>
     </div>
   );

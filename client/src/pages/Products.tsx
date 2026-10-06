@@ -34,7 +34,8 @@ export default function Products() {
   return (
     <div>
       <h2>Productos</h2>
-      <input placeholder="Buscar..." value={search} onChange={(e) => setSearch(e.target.value)} />
+      <label htmlFor="product-search">Buscar</label>
+      <input id="product-search" placeholder="Buscar..." value={search} onChange={(e) => setSearch(e.target.value)} />
       <table>
         <thead><tr><th>SKU</th><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Stock</th>{user?.role === "admin" && <th></th>}</tr></thead>
         <tbody>
@@ -49,12 +50,17 @@ export default function Products() {
       {user?.role === "admin" && (
         <form onSubmit={save} className="card">
           <h3>{editingId ? "Editar" : "Nuevo"} producto</h3>
-          <input placeholder="SKU" value={form.sku} onChange={(e) => setForm({ ...form, sku: e.target.value })} />
-          <input placeholder="Nombre" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-          <input placeholder="Categoría" value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} />
-          <input type="number" step="0.01" placeholder="Precio" value={form.price} onChange={(e) => setForm({ ...form, price: Number(e.target.value) })} />
-          <input type="number" placeholder="Stock" value={form.stock} onChange={(e) => setForm({ ...form, stock: Number(e.target.value) })} />
-          {error && <p className="error">{error}</p>}
+          <label htmlFor="product-sku">SKU</label>
+          <input id="product-sku" placeholder="SKU" value={form.sku} onChange={(e) => setForm({ ...form, sku: e.target.value })} />
+          <label htmlFor="product-name">Nombre</label>
+          <input id="product-name" placeholder="Nombre" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+          <label htmlFor="product-category">Categoría</label>
+          <input id="product-category" placeholder="Categoría" value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} />
+          <label htmlFor="product-price">Precio</label>
+          <input id="product-price" type="number" step="0.01" placeholder="Precio" value={form.price} onChange={(e) => setForm({ ...form, price: Number(e.target.value) })} />
+          <label htmlFor="product-stock">Stock</label>
+          <input id="product-stock" type="number" placeholder="Stock" value={form.stock} onChange={(e) => setForm({ ...form, stock: Number(e.target.value) })} />
+          {error && <p className="error" role="alert">{error}</p>}
           <button>Guardar</button>
         </form>
       )}

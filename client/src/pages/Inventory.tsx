@@ -35,16 +35,19 @@ export default function Inventory() {
       </table>
       <form onSubmit={submit} className="card">
         <h3>Movimiento</h3>
-        <select value={productId} onChange={(e) => setProductId(e.target.value)}>
+        <label htmlFor="movement-product">Producto</label>
+        <select id="movement-product" value={productId} onChange={(e) => setProductId(e.target.value)}>
           <option value="">Producto...</option>
           {products.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
         </select>
-        <select value={type} onChange={(e) => setType(e.target.value as any)}>
+        <label htmlFor="movement-type">Tipo</label>
+        <select id="movement-type" value={type} onChange={(e) => setType(e.target.value as any)}>
           <option value="IN">Entrada</option>
           <option value="OUT">Salida</option>
         </select>
-        <input type="number" min={1} value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} />
-        {error && <p className="error">{error}</p>}
+        <label htmlFor="movement-quantity">Cantidad</label>
+        <input id="movement-quantity" type="number" min={1} value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} />
+        {error && <p className="error" role="alert">{error}</p>}
         <button>Registrar</button>
       </form>
       <h3>Movimientos</h3>
