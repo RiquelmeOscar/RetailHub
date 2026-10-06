@@ -24,7 +24,7 @@ Fuente de trabajo del loop de iteración (`/iterar`, skill `retailhub-iterate`).
 
 - **Categoría:** UX
 - **Prioridad:** P1
-- **Estado:** todo
+- **Estado:** done (2026-10-05, `23ced3f`)
 - **Descripción:** definir variables en `:root` (colores, radios, espaciado) y reemplazar literales de `client/src/styles.css`.
 - **Aceptación:** sin cambios visuales perceptibles; `typecheck` y `build` verdes.
 
