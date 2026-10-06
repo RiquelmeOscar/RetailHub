@@ -89,5 +89,5 @@ Criterios del veredicto:
 
 ## 5. Limpieza
 
-- Detener la API que levantó QA (`kill <pid>`), salvo que la haya levantado el flujo de iteración.
+- Detener la API y el client que levantó QA. En Windows matar el árbol completo: `taskkill //F //T //PID <pid>` (un `kill` simple puede dejar vivos los hijos de npm/tsx/vite).
 - Dejar la base arriba. No borrar volúmenes ni datos.
