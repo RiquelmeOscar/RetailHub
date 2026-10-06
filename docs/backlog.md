@@ -64,7 +64,7 @@ Fuente de trabajo del loop de iteración (`/iterar`, skill `retailhub-iterate`).
 
 - **Categoría:** UX
 - **Prioridad:** P2
-- **Estado:** todo
+- **Estado:** done (2026-10-06, `6541312`)
 - **Descripción:** deshabilitar botones durante requests y mostrar mensajes de lista vacía en las 5 páginas.
 - **Aceptación:** sin doble submit; listas vacías muestran texto claro.
 
