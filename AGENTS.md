@@ -41,7 +41,7 @@ Credenciales seed: `admin@retailhub.dev` / `admin123`, `operator@retailhub.dev` 
 ## Iteración automática y QA
 
 - Skills del proyecto en `.opencode/skills/`: `retailhub-ux` (UI/UX), `retailhub-features` (módulos), `retailhub-errors` (errores), `retailhub-qa` (auditoría + smoke), `retailhub-iterate` (protocolo de iteración).
-- `/iterar [ux|feature|error]` ejecuta una iteración completa: toma un ítem de `docs/backlog.md`, implementa, pasa QA, commitea y actualiza el backlog. `/qa` corre solo la auditoría. Una iteración = un ítem = un commit.
+- `/iterar [ux|feature|error]` ejecuta una iteración completa: toma un ítem de `docs/backlog.md`, implementa, pasa QA, commitea y actualiza el backlog. `/qa` corre solo la auditoría. Una iteración = un ítem = un commit de código (el backlog se actualiza en un commit `docs:` aparte).
 - `docs/backlog.md` es la fuente de trabajo priorizada. Los ítems `[requiere decisión]` no se tocan sin aprobación del usuario.
 - `npm run smoke` (o `node scripts/smoke.mjs`) verifica la API contra `http://localhost:3001`: auth, roles, productos, stock y órdenes.
 - Automatización Orca "RetailHub iteración": diaria 09:00, provider `opencode`, sobre el worktree `silverside`. Corre una iteración desatendida y commitea en la rama actual, sin push.

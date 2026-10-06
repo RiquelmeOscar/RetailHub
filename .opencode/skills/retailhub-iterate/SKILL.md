@@ -9,7 +9,7 @@ Protocolo para mejorar el proyecto de a **una** mejora pequeña por iteración. 
 
 ## Regla de oro
 
-Una iteración = un ítem del backlog = un commit. Si el ítem crece demasiado, reducirlo y dejar el resto como ítem nuevo.
+Una iteración = un ítem del backlog. El código va en un commit; la actualización de `docs/backlog.md` va en un commit `docs:` aparte. Si el ítem crece demasiado, reducirlo y dejar el resto como ítem nuevo.
 
 ## Fase 0 — Precondiciones
 
