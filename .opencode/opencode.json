@@ -3,6 +3,7 @@
   "permission": {
     "edit": "allow",
     "external_directory": "allow",
+    "question": "deny",
     "bash": {
       "*": "allow",
       "git status*": "allow",

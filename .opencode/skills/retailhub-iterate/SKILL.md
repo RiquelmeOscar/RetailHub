@@ -42,7 +42,7 @@ Ejecutar `retailhub-qa` sobre el cambio (smoke, typecheck, build, revisión de d
 
 - Si el veredicto es **APROBADO** o **APROBADO CON OBSERVACIONES** (sin Major/Blocker): continuar.
 - Si es **RECHAZADO**: corregir y repetir QA. Máximo 2 ciclos de corrección.
-- Si tras 2 ciclos sigue rechazado: `git restore` de los archivos **propios de la iteración** (nunca de trabajo ajeno), marcar el ítem como `blocked` con el motivo y el hallazgo principal, y terminar sin commit.
+- Si tras 2 ciclos sigue rechazado: guardar los cambios en un stash recuperable (`git stash push -u -m "iteracion fallida <ID>"`; el árbol estaba limpio al empezar, así que todo lo modificado es de la iteración), marcar el ítem como `blocked` con el motivo y el hallazgo principal, y terminar sin commit.
 
 ## Fase 4 — Commit y cierre
 

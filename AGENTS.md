@@ -45,4 +45,4 @@ Credenciales seed: `admin@retailhub.dev` / `admin123`, `operator@retailhub.dev` 
 - `docs/backlog.md` es la fuente de trabajo priorizada. Los ítems `[requiere decisión]` no se tocan sin aprobación del usuario.
 - `npm run smoke` (o `node scripts/smoke.mjs`) verifica la API contra `http://localhost:3001`: auth, roles, productos, stock y órdenes.
 - Automatización Orca "RetailHub iteración": diaria 09:00, provider `opencode`, sobre el worktree `silverside`. Corre una iteración desatendida y commitea en la rama actual, sin push.
-- Permisos del proyecto en `.opencode/opencode.json`: edición y bash permitidos para poder correr desatendido, con red de denies (push, amend, reset, restore, rm, publicaciones). Aplica también a sesiones interactivas de este worktree.
+- Permisos del proyecto en `.opencode/opencode.json`: edición y bash permitidos para poder correr desatendido, con red de denies (push, amend, reset, restore, rm, publicaciones) y tool de preguntas denegado (evita corridas colgadas). Aplica también a sesiones interactivas de este worktree.
