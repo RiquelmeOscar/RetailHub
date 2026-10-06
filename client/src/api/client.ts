@@ -9,6 +9,18 @@ export function setToken(token: string | null) {
   else localStorage.removeItem(TOKEN_KEY);
 }
 
+export class ApiError extends Error {
+  status: number;
+  code: string;
+
+  constructor(status: number, code: string, message: string) {
+    super(message);
+    this.name = "ApiError";
+    this.status = status;
+    this.code = code;
+  }
+}
+
 export async function api<T = any>(path: string, options: RequestInit = {}): Promise<T> {
   const token = getToken();
   const res = await fetch(`/api${path}`, {
@@ -20,6 +32,12 @@ export async function api<T = any>(path: string, options: RequestInit = {}): Pro
     },
   });
   const body = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(body?.error?.message || `Error ${res.status}`);
+  if (!res.ok) {
+    throw new ApiError(
+      res.status,
+      body?.error?.code || "UNKNOWN",
+      body?.error?.message || `Error ${res.status}`
+    );
+  }
   return body;
 }
