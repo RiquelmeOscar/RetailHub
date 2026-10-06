@@ -6,20 +6,24 @@ export default function OrderDetail() {
   const { id } = useParams();
   const [order, setOrder] = useState<any>(null);
   const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
 
   const load = useCallback(() => api(`/orders/${id}`).then(setOrder), [id]);
   useEffect(() => { load(); }, [load]);
 
   async function act(action: "confirm" | "cancel") {
     setError("");
+    setBusy(true);
     try {
       setOrder(await api(`/orders/${id}/${action}`, { method: "POST" }));
     } catch (err: any) {
       setError(err.message);
+    } finally {
+      setBusy(false);
     }
   }
 
-  if (!order) return null;
+  if (!order) return <p className="empty">Cargando…</p>;
   return (
     <div>
       <h2>Orden {order.id.slice(0, 8)} — {order.status}</h2>
@@ -31,11 +35,11 @@ export default function OrderDetail() {
       {error && <p className="error" role="alert">{error}</p>}
       {order.status === "PENDING" && (
         <>
-          <button onClick={() => act("confirm")}>Confirmar</button>
-          <button onClick={() => act("cancel")}>Cancelar</button>
+          <button disabled={busy} onClick={() => act("confirm")}>Confirmar</button>
+          <button disabled={busy} onClick={() => act("cancel")}>Cancelar</button>
         </>
       )}
-      {order.status === "CONFIRMED" && <button onClick={() => act("cancel")}>Cancelar (repone stock)</button>}
+      {order.status === "CONFIRMED" && <button disabled={busy} onClick={() => act("cancel")}>Cancelar (repone stock)</button>}
     </div>
   );
 }

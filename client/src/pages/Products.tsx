@@ -11,15 +11,23 @@ export default function Products() {
   const [form, setForm] = useState<any>(empty);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [busy, setBusy] = useState(false);
 
   async function load() {
-    setProducts(await api(`/products${search ? `?search=${encodeURIComponent(search)}` : ""}`));
+    setLoading(true);
+    try {
+      setProducts(await api(`/products${search ? `?search=${encodeURIComponent(search)}` : ""}`));
+    } finally {
+      setLoading(false);
+    }
   }
   useEffect(() => { load(); }, [search]);
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
     setError("");
+    setBusy(true);
     try {
       if (editingId) await api(`/products/${editingId}`, { method: "PATCH", body: JSON.stringify(form) });
       else await api("/products", { method: "POST", body: JSON.stringify(form) });
@@ -28,6 +36,8 @@ export default function Products() {
       load();
     } catch (err: any) {
       setError(err.message);
+    } finally {
+      setBusy(false);
     }
   }
 
@@ -47,6 +57,8 @@ export default function Products() {
           ))}
         </tbody>
       </table>
+      {loading && <p className="empty">Cargando…</p>}
+      {!loading && products.length === 0 && <p className="empty">No hay productos todavía.</p>}
       {user?.role === "admin" && (
         <form onSubmit={save} className="card">
           <h3>{editingId ? "Editar" : "Nuevo"} producto</h3>
@@ -61,7 +73,7 @@ export default function Products() {
           <label htmlFor="product-stock">Stock</label>
           <input id="product-stock" type="number" placeholder="Stock" value={form.stock} onChange={(e) => setForm({ ...form, stock: Number(e.target.value) })} />
           {error && <p className="error" role="alert">{error}</p>}
-          <button>Guardar</button>
+          <button disabled={busy}>{busy ? "Guardando…" : "Guardar"}</button>
         </form>
       )}
     </div>
