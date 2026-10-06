@@ -32,7 +32,7 @@ Fuente de trabajo del loop de iteración (`/iterar`, skill `retailhub-iterate`).
 
 - **Categoría:** UX
 - **Prioridad:** P1
-- **Estado:** todo
+- **Estado:** done (2026-10-05, `f359ca7`)
 - **Descripción:** `:hover`, `:focus-visible` y `:disabled` consistentes en botones, links y filas; foco visible por teclado.
 - **Aceptación:** navegación con Tab muestra foco claro; botones deshabilitados se distinguen.
 
