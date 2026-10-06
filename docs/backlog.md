@@ -48,7 +48,7 @@ Fuente de trabajo del loop de iteración (`/iterar`, skill `retailhub-iterate`).
 
 - **Categoría:** Errores
 - **Prioridad:** P1
-- **Estado:** todo
+- **Estado:** done (2026-10-05, `a1a3455`)
 - **Descripción:** que `api()` conserve `status` y `code` del servidor (clase `ApiError` propia) para mensajes contextuales.
 - **Aceptación:** las páginas siguen mostrando el mensaje; el código está disponible programáticamente.
 
