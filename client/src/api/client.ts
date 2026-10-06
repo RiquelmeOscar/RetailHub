@@ -9,6 +9,12 @@ export function setToken(token: string | null) {
   else localStorage.removeItem(TOKEN_KEY);
 }
 
+let onUnauthorized: (() => void) | null = null;
+
+export function setUnauthorizedHandler(handler: (() => void) | null) {
+  onUnauthorized = handler;
+}
+
 export class ApiError extends Error {
   status: number;
   code: string;
@@ -33,6 +39,10 @@ export async function api<T = any>(path: string, options: RequestInit = {}): Pro
   });
   const body = await res.json().catch(() => ({}));
   if (!res.ok) {
+    if (res.status === 401) {
+      setToken(null);
+      onUnauthorized?.();
+    }
     throw new ApiError(
       res.status,
       body?.error?.code || "UNKNOWN",

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { api, getToken, setToken } from "../api/client";
+import { api, getToken, setToken, setUnauthorizedHandler } from "../api/client";
 
 interface User {
   id: string;
@@ -16,6 +16,11 @@ const AuthContext = createContext<{ user: User | null; login: (e: string, p: str
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    setUnauthorizedHandler(() => setUser(null));
+    return () => setUnauthorizedHandler(null);
+  }, []);
 
   useEffect(() => {
     if (getToken()) {
