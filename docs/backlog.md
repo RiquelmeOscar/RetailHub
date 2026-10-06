@@ -40,7 +40,7 @@ Fuente de trabajo del loop de iteración (`/iterar`, skill `retailhub-iterate`).
 
 - **Categoría:** UX
 - **Prioridad:** P1
-- **Estado:** todo
+- **Estado:** done (2026-10-05, `b33951f`)
 - **Descripción:** `<label htmlFor>` en todos los inputs, `role="alert"` en errores del client.
 - **Aceptación:** ningún input queda solo con placeholder; errores anunciados a lectores de pantalla.
 
