@@ -56,7 +56,7 @@ Fuente de trabajo del loop de iteración (`/iterar`, skill `retailhub-iterate`).
 
 - **Categoría:** Errores
 - **Prioridad:** P1
-- **Estado:** todo
+- **Estado:** done (2026-10-06, `607c517`)
 - **Descripción:** ante 401 (token vencido/inválido) limpiar token y volver a login.
 - **Aceptación:** request con token vencido desloguea sin pantalla rota.
 
