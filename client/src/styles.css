@@ -1,12 +1,35 @@
-body { font-family: system-ui, sans-serif; margin: 0; background: #f6f7f9; color: #222; }
-.layout main { padding: 24px; max-width: 1000px; margin: 0 auto; }
-.nav { display: flex; gap: 16px; align-items: center; padding: 12px 24px; background: #1f2937; color: #fff; }
-.nav a { color: #d1d5db; text-decoration: none; }
+:root {
+  --color-bg: #f6f7f9;
+  --color-surface: #fff;
+  --color-text: #222;
+  --color-nav-bg: #1f2937;
+  --color-nav-text: #d1d5db;
+  --color-primary: #2563eb;
+  --color-disabled: #9ca3af;
+  --color-error: #b91c1c;
+  --color-border: #e5e7eb;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+
+}
+
+body { font-family: system-ui, sans-serif; margin: 0; background: var(--color-bg); color: var(--color-text); }
+.layout main { padding: var(--space-6); max-width: 1000px; margin: 0 auto; }
+.nav { display: flex; gap: var(--space-4); align-items: center; padding: var(--space-3) var(--space-6); background: var(--color-nav-bg); color: #fff; }
+.nav a { color: var(--color-nav-text); text-decoration: none; }
 .nav .spacer { flex: 1; }
-table { border-collapse: collapse; width: 100%; background: #fff; margin: 12px 0; }
-th, td { border: 1px solid #e5e7eb; padding: 8px 12px; text-align: left; }
-input, select { padding: 8px; margin: 4px 4px 4px 0; }
-button { padding: 8px 14px; margin: 4px 4px 4px 0; background: #2563eb; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
-button:disabled { background: #9ca3af; }
-.card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin: 16px 0; display: flex; flex-direction: column; gap: 8px; max-width: 420px; }
-.error { color: #b91c1c; }
+table { border-collapse: collapse; width: 100%; background: var(--color-surface); margin: var(--space-3) 0; }
+th, td { border: 1px solid var(--color-border); padding: var(--space-2) var(--space-3); text-align: left; }
+input, select { padding: var(--space-2); margin: var(--space-1) var(--space-1) var(--space-1) 0; }
+button { padding: var(--space-2) 14px; margin: var(--space-1) var(--space-1) var(--space-1) 0; background: var(--color-primary); color: #fff; border: none; border-radius: var(--radius-sm); cursor: pointer; }
+button:disabled { background: var(--color-disabled); }
+.card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-5); margin: var(--space-4) 0; display: flex; flex-direction: column; gap: var(--space-2); max-width: 420px; }
+.error { color: var(--color-error); }
